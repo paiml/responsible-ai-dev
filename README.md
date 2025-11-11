@@ -23,10 +23,3 @@ make run          # Scan current directory
 cd security && make all
 cd challenge && make all
 ```
-
-## Use Cases
-
-- **Pre-commit hooks** - Validate code before committing
-- **CI/CD pipelines** - Automated security scanning
-- **Code reviews** - Quick static analysis
-- **Demos** - Each tool runs in 3-4 minutes with test coverage
