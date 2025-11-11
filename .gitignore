@@ -1,0 +1,20 @@
+# Coverage reports
+cov_profile/
+*.lcov
+
+# Compiled executables
+flaw_detector
+security_scanner
+secret_scanner
+
+# Test files
+test_*.ts
+test_*.txt
+test_*.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Deno
+.deno/
