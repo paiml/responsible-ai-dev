@@ -12,6 +12,9 @@
 PROJECTS := challenge flaw-detector security validation
 PROJECT_DIRS := $(addprefix ./,$(PROJECTS))
 
+# Projects to include in quality checks (excludes validation demo code)
+QUALITY_PROJECTS := challenge flaw-detector security
+
 # Colors for output
 BLUE := \033[36m
 GREEN := \033[32m
@@ -69,20 +72,20 @@ test:  ## Run all tests in all projects
 	done
 	@echo "$(GREEN)✅ All tests passed$(RESET)"
 
-lint:  ## Run linting in all projects
+lint:  ## Run linting in all projects (excludes validation demo code)
 	@echo "$(BLUE)🔍 Running linters...$(RESET)"
 	@echo "$(BLUE)━━━ Linting Makefile ━━━$(RESET)"
 	@command -v bashrs >/dev/null 2>&1 && bashrs lint Makefile || \
 		echo "$(YELLOW)⚠️  bashrs not installed, skipping Makefile lint$(RESET)"
-	@for dir in $(PROJECTS); do \
+	@for dir in $(QUALITY_PROJECTS); do \
 		echo "$(BLUE)━━━ Linting: $$dir ━━━$(RESET)"; \
 		$(MAKE) -C "$$dir" lint || exit 1; \
 	done
 	@echo "$(GREEN)✅ All linting passed$(RESET)"
 
-check:  ## Run type checking in all projects
+check:  ## Run type checking in all projects (excludes validation demo code)
 	@echo "$(BLUE)🔎 Running type checks...$(RESET)"
-	@for dir in $(PROJECTS); do \
+	@for dir in $(QUALITY_PROJECTS); do \
 		echo "$(BLUE)━━━ Type checking: $$dir ━━━$(RESET)"; \
 		$(MAKE) -C "$$dir" check || exit 1; \
 	done
