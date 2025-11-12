@@ -18,3 +18,17 @@ Thumbs.db
 
 # Deno
 .deno/
+
+# IDE and Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Repo scoring artifacts
+REPO-SCORE.md
+repo-score.json

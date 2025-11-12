@@ -1,0 +1,62 @@
+# PMAT Quality Gates Configuration
+# See: https://paiml.github.io/pmat-book/
+
+[gates]
+# Enable quality gate checks
+run_clippy = false  # N/A for Deno/TypeScript projects
+clippy_strict = false
+run_tests = true
+test_timeout = 300  # 5 minutes
+check_coverage = true
+min_coverage = 70.0  # Target 70% coverage minimum
+check_complexity = true
+max_complexity = 10  # Cyclomatic complexity limit
+max_cognitive_complexity = 10  # Cognitive complexity limit
+
+[testing]
+# Test configuration
+require_tests = true
+min_test_count = 10
+allow_ignored_tests = true
+test_fast_timeout = 300  # 5 minutes for fast tests
+test_all_timeout = 600  # 10 minutes for all tests
+
+[quality]
+# Code quality standards
+allow_satd = false  # Zero self-admitted technical debt
+allow_todo = true  # TODOs are ok with tracking
+max_line_length = 120
+require_documentation = true
+
+[hygiene]
+# Repository hygiene
+allow_cruft = false
+max_file_size_mb = 1
+check_large_files = true
+require_gitignore = true
+
+[ci]
+# CI/CD requirements
+require_github_actions = true
+min_pass_rate = 0.95  # 95% CI success rate
+require_status_checks = true
+
+[documentation]
+# Documentation requirements
+require_readme = true
+require_license = true
+require_contributing = false  # Optional for now
+min_readme_sections = 5
+
+[linting]
+# Linting configuration
+require_linter = true
+linter_commands = ["deno lint", "deno check"]
+lint_timeout = 120  # 2 minutes
+
+[metadata]
+# Project metadata
+project_name = "responsible-ai-dev"
+project_type = "typescript"
+maintainers = ["PAIML Team"]
+version = "0.1.0"

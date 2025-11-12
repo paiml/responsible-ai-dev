@@ -9,10 +9,10 @@ check:
 	deno check secret_scanner.ts secret_scanner_test.ts
 
 test:
-	deno test --allow-read --allow-write
+	deno test --allow-read --allow-write --allow-run
 
 coverage:
-	deno test --allow-read --allow-write --coverage=cov_profile
+	deno test --allow-read --allow-write --allow-run --coverage=cov_profile
 	deno coverage cov_profile
 	@echo "For HTML report: deno coverage cov_profile --html"
 

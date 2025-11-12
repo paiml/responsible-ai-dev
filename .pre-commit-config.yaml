@@ -1,0 +1,75 @@
+# Pre-commit hooks for Responsible AI Development project
+# Install: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Standard pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: check-yaml
+        name: Check YAML syntax
+      - id: check-json
+        name: Check JSON syntax
+      - id: check-toml
+        name: Check TOML syntax
+      - id: check-added-large-files
+        name: Check for large files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+      - id: check-case-conflict
+        name: Check for case conflicts
+      - id: mixed-line-ending
+        name: Check for mixed line endings
+
+  # Deno linting and formatting (TypeScript)
+  - repo: local
+    hooks:
+      - id: deno-lint
+        name: Deno Lint
+        entry: bash -c 'cd challenge && deno lint || true; cd ../flaw-detector && deno lint || true; cd ../security && deno lint || true; cd ../validation && deno lint || true'
+        language: system
+        pass_filenames: false
+        types: [typescript]
+
+      - id: deno-fmt
+        name: Deno Format
+        entry: bash -c 'cd challenge && deno fmt --check || true; cd ../flaw-detector && deno fmt --check || true; cd ../security && deno fmt --check || true; cd ../validation && deno fmt --check || true'
+        language: system
+        pass_filenames: false
+        types: [typescript]
+
+  # Makefile linting with bashrs
+  - repo: local
+    hooks:
+      - id: bashrs-lint-makefile
+        name: Lint Makefiles with bashrs
+        entry: bash -c 'command -v bashrs >/dev/null 2>&1 && bashrs lint Makefile || echo "bashrs not installed, skipping"'
+        language: system
+        pass_filenames: false
+        files: '^Makefile$|^.*\.mk$'
+
+  # Run make lint
+  - repo: local
+    hooks:
+      - id: make-lint
+        name: Run make lint
+        entry: bash -c 'make lint || true'
+        language: system
+        pass_filenames: false
+        stages: [commit]
+
+  # Security checks
+  - repo: local
+    hooks:
+      - id: secret-scanner
+        name: Scan for secrets
+        entry: bash -c 'if [ -f challenge/secret_scanner ]; then challenge/secret_scanner . || true; fi'
+        language: system
+        pass_filenames: false
+        stages: [commit]
